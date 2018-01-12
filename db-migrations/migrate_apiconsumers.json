@@ -1,0 +1,14 @@
+{
+  "migrationsDir": "./schemas_apiconsumers",
+  "quiet": false,
+  "cassandra": {
+    "contactPoints": [ "db" ],
+    "keyspace": "apiconsumers",
+    "protocolOptions": {
+      "port": 9042
+    },
+    "socketOptions": {
+      "connectTimeout": 15000
+    }
+  }
+}

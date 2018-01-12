@@ -1,0 +1,17 @@
+{
+  "name": "cassandra-migrations",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "migrate-base": "./node_modules/.bin/cassandra-migration migrate_base.json",
+    "migrate-apiconsumers": "./node_modules/.bin/cassandra-migration migrate_apiconsumers.json",
+    "migrate-all": "npm run migrate-base && npm run migrate-apiconsumers"
+  },
+  "author": "Sovanna Hing",
+  "license": "MIT",
+  "dependencies": {
+    "cassandra-migration": "^2.4.0"
+  }
+}

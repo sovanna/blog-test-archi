@@ -1,0 +1,14 @@
+{
+  "migrationsDir": "./schemas_base",
+  "quiet": false,
+  "cassandra": {
+    "contactPoints": [ "db" ],
+    "keyspace": "it",
+    "protocolOptions": {
+      "port": 9042
+    },
+    "socketOptions": {
+      "connectTimeout": 15000
+    }
+  }
+}

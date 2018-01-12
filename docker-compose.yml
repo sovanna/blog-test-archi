@@ -1,0 +1,61 @@
+version: "3.0"
+
+
+services:
+
+  redis-cache:
+    image: redis
+
+
+  db:
+    env_file:
+      - .env
+    image: scylladb/scylla:2.0.2
+    volumes:
+      - ./var/lib/scylla:/var/lib/scylla
+    command: [
+      "--developer-mode=1"
+    ]
+
+
+  db-migrations:
+    build:
+      context: ./db-migrations
+
+
+  cdn:
+    build:
+      context: ./cdn
+    volumes:
+      - ./cdn/static:${IT_CDN_STATIC}
+    ports:
+      - "${IT_CDN_PORT}:80"
+
+
+  client:
+    env_file:
+      - .env
+    build:
+      context: ./client
+    volumes:
+      - ./client:/usr/src/app
+      - ./cdn/static:${IT_CDN_STATIC}
+    ports:
+      - "${IT_CLIENT_PORT}:${IT_CLIENT_PORT}"
+
+
+  server:
+    env_file:
+      - .env
+    build:
+      context: ./server
+    depends_on:
+      - redis-cache
+      - db
+      - client
+    volumes:
+      - ./server:/usr/src/app
+      - ./cdn/static:${IT_CDN_STATIC}
+    ports:
+      - "${IT_SERVER_PORT}:${IT_SERVER_PORT}"
+
